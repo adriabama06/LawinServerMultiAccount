@@ -70,7 +70,7 @@ express.get("/fortnite/api/cloudstorage/user/:accountId/:file", async (req, res)
 
     try {
         if (!fs.existsSync(path.join(process.env.LAWINSERVER, accountId, "ClientSettings"))) {
-            fs.mkdirSync(path.join(process.env.LAWINSERVER, accountId, "ClientSettings"));
+            fs.mkdirSync(path.join(process.env.LAWINSERVER, accountId, "ClientSettings"), { recursive: true });
         }
     } catch (err) {}
 
@@ -103,7 +103,7 @@ express.get("/fortnite/api/cloudstorage/user/:accountId", async (req, res) => {
 
     try {
         if (!fs.existsSync(path.join(process.env.LAWINSERVER, accountId, "ClientSettings"))) {
-            fs.mkdirSync(path.join(process.env.LAWINSERVER, accountId, "ClientSettings"));
+            fs.mkdirSync(path.join(process.env.LAWINSERVER, accountId, "ClientSettings"), { recursive: true });
         }
     } catch (err) {}
 
@@ -142,7 +142,7 @@ express.put("/fortnite/api/cloudstorage/user/:accountId/:file", async (req, res)
 
     try {
         if (!fs.existsSync(path.join(process.env.LAWINSERVER, accountId, "ClientSettings"))) {
-            fs.mkdirSync(path.join(process.env.LAWINSERVER, accountId, "ClientSettings"));
+            fs.mkdirSync(path.join(process.env.LAWINSERVER, accountId, "ClientSettings"), { recursive: true });
         }
     } catch (err) {}
 

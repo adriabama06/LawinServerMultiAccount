@@ -1,0 +1,38 @@
+name: LawinServer
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3551:3551
+      - 80:80
+
+
+# TODO: Setup storage
+# volumes:
+#   CloudStorage:
+#     driver: local
+#     driver_opts:
+#       type: none
+#       o: bind
+#       device: ./CloudStorage
+#   Config:
+#     driver: local
+#     driver_opts:
+#       type: none
+#       o: bind
+#       device: ./Config
+#   profiles:
+#     driver: local
+#     driver_opts:
+#       type: none
+#       o: bind
+#       device: ./profiles
+#   LawinServer:
+#     driver: local
+#     driver_opts:
+#       type: none
+#       o: bind
+#       device: ./LawinServer

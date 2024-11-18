@@ -1,3 +1,4 @@
+require("dotenv").config();
 const Express = require("express");
 const express = Express();
 const fs = require("fs");
@@ -37,12 +38,8 @@ express.listen(port, () => {
     process.exit(0);
 });
 
-try {
-    if (!fs.existsSync(path.join(process.env.LOCALAPPDATA, "LawinServer"))) fs.mkdirSync(path.join(process.env.LOCALAPPDATA, "LawinServer"));
-} catch (err) {
-    // fallback
-    if (!fs.existsSync(path.join(__dirname, "ClientSettings"))) fs.mkdirSync(path.join(__dirname, "ClientSettings"));
-}
+// Create LawinServer folder to save cloudsotrage settings
+if (!fs.existsSync(process.env.LAWINSERVER)) fs.mkdirSync(process.env.LAWINSERVER);
 
 // if endpoint not found, return this error
 express.use((req, res, next) => {

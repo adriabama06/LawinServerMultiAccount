@@ -5,6 +5,8 @@ const fs = require("fs");
 const path = require("path");
 const functions = require("./functions.js");
 
+const LAWINSERVER_PATH = process.env.LAWINSERVER ?? "LawinServer";
+
 express.use((req, res, next) => {
     // Get raw body in encoding latin1 for ClientSettings
     if (req.originalUrl.toLowerCase().startsWith("/fortnite/api/cloudstorage/user/") && req.method == "PUT") {
@@ -69,8 +71,8 @@ express.get("/fortnite/api/cloudstorage/user/:accountId/:file", async (req, res)
     const { accountId, file } = req.params;
 
     try {
-        if (!fs.existsSync(path.join(process.env.LAWINSERVER, accountId, "ClientSettings"))) {
-            fs.mkdirSync(path.join(process.env.LAWINSERVER, accountId, "ClientSettings"), { recursive: true });
+        if (!fs.existsSync(path.join(LAWINSERVER_PATH, accountId, "ClientSettings"))) {
+            fs.mkdirSync(path.join(LAWINSERVER_PATH, accountId, "ClientSettings"), { recursive: true });
         }
     } catch (err) {}
 
@@ -86,7 +88,7 @@ express.get("/fortnite/api/cloudstorage/user/:accountId/:file", async (req, res)
 
     var currentBuildID = memory.CL;
 
-    const filePath = path.join(process.env.LAWINSERVER, accountId, "ClientSettings", `ClientSettings-${currentBuildID}.Sav`);
+    const filePath = path.join(LAWINSERVER_PATH, accountId, "ClientSettings", `ClientSettings-${currentBuildID}.Sav`);
 
     if (fs.existsSync(filePath)) {
         const ParsedFile = fs.readFileSync(filePath);
@@ -102,8 +104,8 @@ express.get("/fortnite/api/cloudstorage/user/:accountId", async (req, res) => {
     const { accountId } = req.params;
 
     try {
-        if (!fs.existsSync(path.join(process.env.LAWINSERVER, accountId, "ClientSettings"))) {
-            fs.mkdirSync(path.join(process.env.LAWINSERVER, accountId, "ClientSettings"), { recursive: true });
+        if (!fs.existsSync(path.join(LAWINSERVER_PATH, accountId, "ClientSettings"))) {
+            fs.mkdirSync(path.join(LAWINSERVER_PATH, accountId, "ClientSettings"), { recursive: true });
         }
     } catch (err) {}
 
@@ -113,7 +115,7 @@ express.get("/fortnite/api/cloudstorage/user/:accountId", async (req, res) => {
 
     var currentBuildID = memory.CL;
     
-    const filePath = path.join(process.env.LAWINSERVER, accountId, "ClientSettings", `ClientSettings-${currentBuildID}.Sav`);
+    const filePath = path.join(LAWINSERVER_PATH, accountId, "ClientSettings", `ClientSettings-${currentBuildID}.Sav`);
 
     if (fs.existsSync(filePath)) {
         const ParsedFile = fs.readFileSync(filePath, 'latin1');
@@ -141,8 +143,8 @@ express.put("/fortnite/api/cloudstorage/user/:accountId/:file", async (req, res)
     const { accountId, file } = req.params;
 
     try {
-        if (!fs.existsSync(path.join(process.env.LAWINSERVER, accountId, "ClientSettings"))) {
-            fs.mkdirSync(path.join(process.env.LAWINSERVER, accountId, "ClientSettings"), { recursive: true });
+        if (!fs.existsSync(path.join(LAWINSERVER_PATH, accountId, "ClientSettings"))) {
+            fs.mkdirSync(path.join(LAWINSERVER_PATH, accountId, "ClientSettings"), { recursive: true });
         }
     } catch (err) {}
 
@@ -156,7 +158,7 @@ express.put("/fortnite/api/cloudstorage/user/:accountId/:file", async (req, res)
 
     var currentBuildID = memory.CL;
 
-    const filePath = path.join(process.env.LAWINSERVER, accountId, "ClientSettings", `ClientSettings-${currentBuildID}.Sav`);
+    const filePath = path.join(LAWINSERVER_PATH, accountId, "ClientSettings", `ClientSettings-${currentBuildID}.Sav`);
 
     fs.writeFileSync(filePath, req.rawBody, 'latin1');
     res.status(204).end();

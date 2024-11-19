@@ -5,6 +5,8 @@ const fs = require("fs");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 
+const LAWINSERVER_PATH = process.env.LAWINSERVER ?? "LawinServer";
+
 express.use(Express.json());
 express.use(Express.urlencoded({ extended: true }));
 express.use(Express.static('public'));
@@ -39,7 +41,7 @@ express.listen(port, () => {
 });
 
 // Create LawinServer folder to save cloudsotrage settings
-if (!fs.existsSync(process.env.LAWINSERVER)) fs.mkdirSync(process.env.LAWINSERVER);
+if (!fs.existsSync(LAWINSERVER_PATH)) fs.mkdirSync(LAWINSERVER_PATH);
 
 // if endpoint not found, return this error
 express.use((req, res, next) => {

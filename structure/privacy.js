@@ -1,6 +1,7 @@
 const Express = require("express");
 const express = Express.Router();
 const fs = require("fs");
+const path = require("path");
 
 const LAWINSERVER_PATH = process.env.LAWINSERVER ?? "LawinServer";
 const preProcessRequest = (req, filename) => {

@@ -12,6 +12,7 @@ express.use(Express.urlencoded({ extended: true }));
 express.use(Express.static('public'));
 express.use(cookieParser());
 
+express.use(require("./cdn.js"));
 express.use(require("./structure/party.js"));
 express.use(require("./structure/discovery.js"))
 express.use(require("./structure/privacy.js"));

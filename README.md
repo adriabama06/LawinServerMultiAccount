@@ -76,5 +76,5 @@
 2) Run "install_packages.bat" (This file isn't required after the packages are installed.)
 3) Run "start.bat", It should say "Started listening on port 3551"
 4) Use something to redirect the fortnite servers to localhost:3551 (Which could be fiddler, ssl bypass that redirects servers, etc...)
+5) **(Optional)**: This feature ensures that no external server is required to preserve the game. If desired, you can download and unzip [cdn.zip](https://www.mediafire.com/file/wh8r4txplyn4uo1/cdn.zip/file), which contains the CDN files as of `22:06 20/11/2024`. After unzipping, run the `renamecdn.js` script. Use your `http://public_ip:port` in the JSON files. Refer to the first few lines of the script to identify which JSON files need modification.
 
-If you want, you can unzip [cdn.zip](https://www.mediafire.com/file/wh8r4txplyn4uo1/cdn.zip/file) to get the cdn downloaded until `22:06 20/11/2024`, then run the renamecdn.js script using your http://public_ip:port in the json files, read the first lines of the code to know wich json's.

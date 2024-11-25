@@ -6,33 +6,42 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 3551:3551
+      - 3551:${PORT:-3551} # PORT by default is 3551
       - 80:80
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://127.0.0.1:${PORT:-3551}/healthcheck"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+    volumes:
+      - CloudStorage:/app/CloudStorage
+      - Config:/app/Config
+      - profiles:/app/profiles
+      - LawinServer:/app/LawinServer
 
-
-# TODO: Setup storage
-# volumes:
-#   CloudStorage:
-#     driver: local
-#     driver_opts:
-#       type: none
-#       o: bind
-#       device: ./CloudStorage
-#   Config:
-#     driver: local
-#     driver_opts:
-#       type: none
-#       o: bind
-#       device: ./Config
-#   profiles:
-#     driver: local
-#     driver_opts:
-#       type: none
-#       o: bind
-#       device: ./profiles
-#   LawinServer:
-#     driver: local
-#     driver_opts:
-#       type: none
-#       o: bind
-#       device: ./LawinServer
+volumes:
+  CloudStorage:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./CloudStorage
+  Config:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./Config
+  profiles:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./profiles
+  LawinServer:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./LawinServer

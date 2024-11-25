@@ -44,6 +44,8 @@ express.listen(port, () => {
 // Create LawinServer folder to save cloudsotrage settings
 if (!fs.existsSync(LAWINSERVER_PATH)) fs.mkdirSync(LAWINSERVER_PATH);
 
+express.get("/healthcheck", (req, res) => res.status(200).end());
+
 // if endpoint not found, return this error
 express.use((req, res, next) => {
     var XEpicErrorName = "errors.com.lawinserver.common.not_found";

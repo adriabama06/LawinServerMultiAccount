@@ -8129,7 +8129,7 @@ express.post("/fortnite/api/game/v2/profile/:accountId/client/PutModularCosmetic
 
 // Get BR Locker 4
 express.get("/api/locker/v3/:deploymentId/account/:accountId/items", async (req, res) => {
-    const profile = require("./../profiles/athena.json");
+    const { profile, ProfileFilePath } = preProcessRequest(req, "athena.json");
     var StatChanged = false;
 
     if (!profile.stats.attributes.hasOwnProperty("loadout_presets")) {
@@ -8187,7 +8187,7 @@ express.get("/api/locker/v3/:deploymentId/account/:accountId/items", async (req,
         profile.rvn += 1;
         profile.commandRevision += 1;
 
-        fs.writeFileSync("./../profiles/athena.json", JSON.stringify(profile, null, 2));
+        fs.writeFileSync(ProfileFilePath, JSON.stringify(profile, null, 2));
     }
 
     res.json(response)
@@ -8196,7 +8196,7 @@ express.get("/api/locker/v3/:deploymentId/account/:accountId/items", async (req,
 
 // Set BR Locker 4
 express.put("/api/locker/v3/:deploymentId/loadout/:loadoutType/account/:accountId/active-loadout", async (req, res) => {
-    const profile = require("./../profiles/athena.json");
+    const { profile, ProfileFilePath } = preProcessRequest(req, "athena.json");
     var StatChanged = false;
 
     var date = new Date().toISOString();
@@ -8306,7 +8306,7 @@ express.put("/api/locker/v3/:deploymentId/loadout/:loadoutType/account/:accountI
         profile.rvn += 1;
         profile.commandRevision += 1;
 
-        fs.writeFileSync("./../profiles/athena.json", JSON.stringify(profile, null, 2));
+        fs.writeFileSync(ProfileFilePath, JSON.stringify(profile, null, 2));
     }
 
     res.json(response)
@@ -8315,7 +8315,7 @@ express.put("/api/locker/v3/:deploymentId/loadout/:loadoutType/account/:accountI
 
 // Get BR Locker 5
 express.get("/api/locker/v4/:deploymentId/account/:accountId/items", async (req, res) => {
-    const profile = require("./../profiles/athena.json");
+    const { profile, ProfileFilePath } = preProcessRequest(req, "athena.json");
     var StatChanged = false;
 
     if (!profile.stats.attributes.hasOwnProperty("loadout_presets")) {
@@ -8387,7 +8387,7 @@ express.get("/api/locker/v4/:deploymentId/account/:accountId/items", async (req,
         profile.rvn += 1;
         profile.commandRevision += 1;
 
-        fs.writeFileSync("./../profiles/athena.json", JSON.stringify(profile, null, 2));
+        fs.writeFileSync(ProfileFilePath, JSON.stringify(profile, null, 2));
     }
 
     res.json(response)
@@ -8396,7 +8396,7 @@ express.get("/api/locker/v4/:deploymentId/account/:accountId/items", async (req,
 
 // Set BR Locker 5
 express.put("/api/locker/v4/:deploymentId/account/:accountId/active-loadout-group", async (req, res) => {
-    const profile = require("./../profiles/athena.json");
+    const { profile, ProfileFilePath } = preProcessRequest(req, "athena.json");
     var StatChanged = false;
 
     var date = new Date().toISOString();
@@ -8507,7 +8507,7 @@ express.put("/api/locker/v4/:deploymentId/account/:accountId/active-loadout-grou
         profile.rvn += 1;
         profile.commandRevision += 1;
 
-        fs.writeFileSync("./../profiles/athena.json", JSON.stringify(profile, null, 2));
+        fs.writeFileSync(ProfileFilePath, JSON.stringify(profile, null, 2));
     }
 
     res.json(response)

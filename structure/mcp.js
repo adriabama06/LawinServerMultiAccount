@@ -1146,10 +1146,6 @@ express.post("/fortnite/api/game/v2/profile/:accountId/client/ClientQuestLogin",
                 if (config.Profile.bCompletedSeasonalQuests == true) {
                     profile.items[ChallengeBundleID].attributes.num_quests_completed = ChallengeBundle.grantedquestinstanceids.length;
                     profile.items[ChallengeBundleID].attributes.num_progress_quests_completed = ChallengeBundle.grantedquestinstanceids.length;
-
-                    if ((memory.season == 10 || memory.season == 11) && (ChallengeBundle.templateId.toLowerCase().includes("missionbundle_s10_0") || ChallengeBundle.templateId.toLowerCase() == "challengebundle:missionbundle_s11_stretchgoals2")) {
-                        profile.items[ChallengeBundleID].attributes.level += 1;
-                    }
                 }
 
                 ApplyProfileChanges.push({
@@ -8619,64 +8615,6 @@ express.post("/fortnite/api/game/v2/profile/:accountId/client/SetHeroCosmeticVar
     res.json({
         "profileRevision": profile.rvn || 0,
         "profileId": req.query.profileId || "campaign",
-        "profileChangesBaseRevision": BaseRevision,
-        "profileChanges": ApplyProfileChanges,
-        "profileCommandRevision": profile.commandRevision || 0,
-        "serverTime": new Date().toISOString(),
-        "responseVersion": 1
-    })
-    res.end();
-});
-
-// any mcp request that doesn't have something assigned to it
-express.post("/fortnite/api/game/v2/profile/:accountId/client/*", async (req, res) => {
-    const { profile, ProfileFilePath } = preProcessRequest(req, `${req.query.profileId || "athena"}.json`);
-
-    // do not change any of these or you will end up breaking it
-    var ApplyProfileChanges = [];
-    var BaseRevision = profile.rvn || 0;
-    var QueryRevision = req.query.rvn || -1;
-
-    // this doesn't work properly on version v12.20 and above but whatever
-    if (QueryRevision != BaseRevision) {
-        ApplyProfileChanges = [{
-            "changeType": "fullProfileUpdate",
-            "profile": profile
-        }];
-    }
-
-    res.json({
-        "profileRevision": profile.rvn || 0,
-        "profileId": req.query.profileId || "athena",
-        "profileChangesBaseRevision": BaseRevision,
-        "profileChanges": ApplyProfileChanges,
-        "profileCommandRevision": profile.commandRevision || 0,
-        "serverTime": new Date().toISOString(),
-        "responseVersion": 1
-    })
-    res.end();
-});
-
-// Code from https://github.com/Milxnor/LawinServer/blob/main/structure/mcp.js
-express.post("/fortnite/api/game/v2/profile/:accountId/dedicated_server/*", async (req, res) => {
-    const { profile, ProfileFilePath } = preProcessRequest(req, `${req.query.profileId || "athena"}.json`);
-
-    // do not change any of these or you will end up breaking it
-    var ApplyProfileChanges = [];
-    var BaseRevision = profile.rvn || 0;
-    var QueryRevision = req.query.rvn || -1;
-
-    // this doesn't work properly on version v12.20 and above but whatever
-    if (QueryRevision != BaseRevision) {
-        ApplyProfileChanges = [{
-            "changeType": "fullProfileUpdate",
-            "profile": profile
-        }];
-    }
-
-    res.json({
-        "profileRevision": profile.rvn || 0,
-        "profileId": req.query.profileId || "athena",
         "profileChangesBaseRevision": BaseRevision,
         "profileChanges": ApplyProfileChanges,
         "profileCommandRevision": profile.commandRevision || 0,

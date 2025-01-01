@@ -7401,8 +7401,8 @@ express.post("/fortnite/api/game/v2/profile/:accountId/client/PurchaseCatalogEnt
 });
 
 // Set auto claim for a season pass
-express.post("/fortnite/api/game/v2/profile/*/client/SetSeasonPassAutoClaim", async (req, res) => {
-    const profile = require(`./../profiles/${req.query.profileId || "athena"}.json`);
+express.post("/fortnite/api/game/v2/profile/:accountId/client/SetSeasonPassAutoClaim", async (req, res) => {
+    const { profile, ProfileFilePath } = preProcessRequest(req, `${req.query.profileId || "athena"}.json`);
 
     // do not change any of these or you will end up breaking it
     var ApplyProfileChanges = [];
@@ -7441,7 +7441,7 @@ express.post("/fortnite/api/game/v2/profile/*/client/SetSeasonPassAutoClaim", as
         profile.rvn += 1;
         profile.commandRevision += 1;
 
-        fs.writeFileSync(`./profiles/${req.query.profileId || "athena"}.json`, JSON.stringify(profile, null, 2));
+        fs.writeFileSync(ProfileFilePath, JSON.stringify(profile, null, 2));
     }
 
     // this doesn't work properly on version v12.20 and above but whatever
